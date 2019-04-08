@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sikiedu.mapper.DictMapper">
+
+	<select id="selectTagName" parameterType="String" resultType="String">
+	SELECT
+	sys_dict.dict_item_name
+	FROM
+	sys_dict
+	WHERE
+	sys_dict.dict_id IN 
+	<foreach collection="list" item="id" open="(" close=")" separator=",">
+	#{id}
+	</foreach>
+	</select>
+	
+	<!-- 根据词典类型id获取所有词典对象列表
+	List<SysDict> selectSysDictByTypeId(String typeId); -->
+	<select id="selectSysDictByTypeId" parameterType="String" resultType="SysDict">
+	SELECT * 
+	FROM sys_dict 
+	WHERE 
+	dict_type_id = #{id}
+	</select>
+</mapper>
